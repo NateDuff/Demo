@@ -38,4 +38,4 @@ stages:
               Write-Host "Branch"
               git branch -M main
               Write-Host "Push"
-              git -c http.$(ghUser).extraHeader="Authorization: bearer $(ghPassword)" push -u origin main
+              git push -u origin main
