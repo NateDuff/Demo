@@ -31,4 +31,4 @@ stages:
               git remote remove origin
               git config http.$(ghUser).extraheader "AUTHORIZATION: bearer $(ghPassword)"
               git remote add origin https://github.com/NateDuff/Demo.git
-              git push -u origin main
+              git -c http.$(ghUser).extraHeader="Authorization: bearer $(ghPassword)" push -u origin main
