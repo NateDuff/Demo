@@ -35,9 +35,10 @@ stages:
             persistCredentials: true
           - checkout: Demo
             persistCredentials: true
-            path: demo2
+            path: s/demo2
           - powershell: | 
               Write-Host "Promote release to github"
+              DIR
               git checkout $(Build.SourceBranchName)
               
               git remote remove origin
