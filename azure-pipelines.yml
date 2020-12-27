@@ -42,7 +42,7 @@ stages:
               CD demo
               git checkout $(Build.SourceBranchName)
 
-              DIR | ? {Name -notlike ".git*"} | Copy-Item -Destination ../demo2 -Recurse -Force -Verbose
+              DIR | ? {$_.Name -notlike ".git*"} | Copy-Item -Destination ../demo2 -Recurse -Force -Verbose
               
               Write-Host "Promote new code to github"
               CD ../demo2
