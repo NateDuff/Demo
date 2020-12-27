@@ -57,5 +57,7 @@ stages:
               git add -A
 
               git commit -m "Publishing from Azure DevOps Git"
+
+              git branch -M main
               
               git push -u origin main
