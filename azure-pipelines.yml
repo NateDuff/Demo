@@ -27,17 +27,11 @@ stages:
               Write-Host "Promote release to github"
               git checkout $(Build.SourceBranchName)
               
-              git remote -v
               git remote remove origin
               git config user.name NateDuff
               git config user.email $(ghUser)
-              git config http.extraheader "AUTHORIZATION: bearer $(ghPassword)"
               git config http.$(ghUser).extraheader "AUTHORIZATION: bearer $(ghPassword)"
-              Write-Host "Add remote"
-              git remote add origin https://github.com/NateDuff/Demo.git
-              Write-Host "Branch"
+
+              git remote add origin https://NateDuff@github.com/NateDuff/Demo.git
               git branch -M main
-              Write-Host "Test"
-              git remote -v
-              Write-Host "Push"
               git push -u origin main
