@@ -32,6 +32,7 @@ stages:
         displayName: Release Promotion
         steps:
           - checkout: self
+            persistCredentials: true
           - checkout: Demo
             persistCredentials: true
           - powershell: | 
