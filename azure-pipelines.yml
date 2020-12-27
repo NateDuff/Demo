@@ -34,7 +34,7 @@ stages:
           # - checkout: self
           #   persistCredentials: true
           #   path: s/demo
-          - checkout: Demo
+          - checkout: self
             # persistCredentials: true
             # path: s/demo2
           - powershell: | 
