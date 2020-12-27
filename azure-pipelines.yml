@@ -40,11 +40,16 @@ stages:
           - powershell: | 
               Write-Host "Stage promotion"
               CD ../s/demo2
+
+              DIR
               
               ## First time only
               #git init
 
               CD ../demo
+              
+              DIR
+              
               git checkout $(Build.SourceBranchName)
 
               DIR | ? {$_.Name -notlike ".git*"} | Copy-Item -Destination ../demo2 -Recurse -Force -Verbose
@@ -64,4 +69,5 @@ stages:
 
               git commit -m "Publishing from Azure DevOps Git"
 
-              git -c http.$(ghUser).extraHeader="Authorization: bearer $(ghPassword)" push -u origin master
+              git push -u origin master
+              #git -c http.$(ghUser).extraHeader="Authorization: bearer $(ghPassword)" push -u origin master
