@@ -38,16 +38,17 @@ stages:
             persistCredentials: true
             path: s/demo2
           - powershell: | 
-              Write-Host "Promote release to github"
-              DIR
+              Write-Host "Stage promotion"
               CD demo
               git checkout $(Build.SourceBranchName)
-              
-              git remote remove origin
-              git config user.name NateDuff
-              git config user.email $(ghUser)
-              git config http.$(ghUser).extraheader "AUTHORIZATION: bearer $(ghPassword)"
 
-              git remote add origin git@github.com:NateDuff/Demo.git
-              git -c http.$(ghUser).extraHeader="Authorization: bearer $(ghPassword)" push -u origin main
-              #git@github.com:yourname/yourrepo.git
+              Copy-Item -Path . -Destination ../demo2 -Exclude .git/ -Recurse -Force -Verbose
+              
+              Write-Host "Promote new code to github"
+              CD ../demo2
+
+              git add -A
+              
+              git commit -m "Publishing from Azure DevOps Git"
+              
+              git push -u origin main
