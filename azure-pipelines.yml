@@ -35,6 +35,7 @@ stages:
             persistCredentials: true
           - checkout: Demo
             persistCredentials: true
+            path: demo2
           - powershell: | 
               Write-Host "Promote release to github"
               git checkout $(Build.SourceBranchName)
