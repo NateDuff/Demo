@@ -31,43 +31,54 @@ stages:
       - job: promotion
         displayName: Release Promotion
         steps:
-          - checkout: self
-            persistCredentials: true
-            path: s/demo
+          # - checkout: self
+          #   persistCredentials: true
+          #   path: s/demo
           - checkout: Demo
-            persistCredentials: true
-            path: s/demo2
+            # persistCredentials: true
+            # path: s/demo2
           - powershell: | 
               Write-Host "Stage promotion"
-              CD ../s/demo2
+              #CD ../s/demo2
 
               DIR
+
+              git checkout $(Build.SourceBranchName)
+
+              git clone --mirror https://$(SYSTEM_ACCESSTOKEN)@dev.azure.com/NateDuff/Duff%20Blog/_git/Demo .
+
+              git remote add GHorigin https://github.com/NateDuff/Demo.git
+
+              git push --mirror https://$(GHPAT)@github.com/NateDuff/Demo.git
               
               ## First time only
               #git init
 
-              CD ../demo
+              #CD ../demo
               
-              DIR
+              #DIR
               
-              git checkout $(Build.SourceBranchName)
+              #git checkout $(Build.SourceBranchName)
 
-              DIR | ? {$_.Name -notlike ".git*"} | Copy-Item -Destination ../demo2 -Recurse -Force -Verbose
+              #DIR | ? {$_.Name -notlike ".git*"} | Copy-Item -Destination ../demo2 -Recurse -Force -Verbose
               
               Write-Host "Promote new code to github"
-              CD ../demo2
+              #CD ../demo2
 
-              git config user.name NateDuff
-              git config user.email $(ghUser)
-              git config http.$(ghUser).extraheader "AUTHORIZATION: bearer $(ghPassword)"
+              #git config user.name NateDuff
+              #git config user.email $(ghUser)
+              #git config http.$(ghUser).extraheader "AUTHORIZATION: bearer $(ghPassword)"
 
-              git checkout master
-              git add -A
+              #git checkout master
+              #git add -A
 
-              git remote remove origin
-              git remote add origin git@github.com:NateDuff/Demo.git
+              #git remote remove origin
+              #git remote add origin git@github.com:NateDuff/Demo.git
 
-              git commit -m "Publishing from Azure DevOps Git"
+              #git commit -m "Publishing from Azure DevOps Git"
 
-              git push -u origin master
+              #git push -u origin master
               #git -c http.$(ghUser).extraHeader="Authorization: bearer $(ghPassword)" push -u origin master
+            displayName: Promotion Script
+            env:
+              SYSTEM_ACCESSTOKEN: $(System.AccessToken)
