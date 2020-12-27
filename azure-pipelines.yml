@@ -35,8 +35,6 @@ stages:
           - powershell: | 
               Write-Host "Stage promotion"
 
-              DIR
-
               git checkout $(Build.SourceBranchName)
 
               git clone --mirror https://$env:SYSTEM_ACCESSTOKEN@dev.azure.com/NateDuff/Duff%20Blog/_git/Demo .
