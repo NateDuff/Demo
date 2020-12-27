@@ -1,3 +1,13 @@
+resources:
+  repositories:
+  - repository: Demo
+    type: git
+    name: Demo
+  - repository: Demo
+    type: github
+    endpoint: MyGitHubServiceConnection
+    name: NateDuff/Demo
+
 trigger:
 - main
 - development
@@ -22,6 +32,7 @@ stages:
         displayName: Release Promotion
         steps:
           - checkout: self
+          - checkout: Demo
             persistCredentials: true
           - powershell: | 
               Write-Host "Promote release to github"
