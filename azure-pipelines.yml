@@ -56,7 +56,7 @@ stages:
 
               git add -A
 
-              git remote add origin git@github.com:NateDuff/Demo.git
+              git remote add origin https://NateDuff@github.com/NateDuff/Demo.git
 
               git commit -m "Publishing from Azure DevOps Git"
 
