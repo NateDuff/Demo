@@ -31,7 +31,6 @@ stages:
               git config user.email $(ghUser)
               git config http.$(ghUser).extraheader "AUTHORIZATION: bearer $(ghPassword)"
               git remote add origin https://github.com/NateDuff/Demo.git
-              git branch -M main
-              git push -u origin main
+              git push --mirror https://github.com/NateDuff/Demo.git
               #git config http.$(ghUser).extraheader "AUTHORIZATION: bearer $(ghPassword)"
               ##-c http.extraHeader="Authorization: Basic $env:SYSTEM_ACCESSTOKEN"
