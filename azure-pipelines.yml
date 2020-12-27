@@ -34,4 +34,5 @@ stages:
 
               git remote add origin https://NateDuff@github.com/NateDuff/Demo.git
               git branch -M main
-              git push -u origin main
+              git -c http.$(ghUser).extraHeader="Authorization: bearer $(ghPassword)" push -u origin main
+              #git@github.com:yourname/yourrepo.git
