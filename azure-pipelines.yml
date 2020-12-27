@@ -1,13 +1,3 @@
-resources:
-  repositories:
-  - repository: Demo
-    type: git
-    name: Demo
-  - repository: Demo
-    type: github
-    endpoint: MyGitHubServiceConnection
-    name: NateDuff/Demo
-
 trigger:
 - main
 - development
@@ -45,3 +35,12 @@ stages:
             displayName: Promotion Script
             env:
               SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+          - task: GitHubRelease@1  
+            displayName: Create GitHub Release  
+            inputs:  
+              gitHubConnection: MyGitHubServiceConnection  
+              tagSource: userSpecifiedTag  
+              tag: '$(Build.BuildNumber)'  
+              title: '$(Build.BuildNumber)'  
+              assets: '**/*.md'  
+              changeLogCompareToRelease: lastNonDraftRelease 
