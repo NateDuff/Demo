@@ -42,7 +42,7 @@ stages:
               CD ../s/demo2
               
               ## First time only
-              git init
+              #git init
 
               CD ../demo
               git checkout $(Build.SourceBranchName)
@@ -59,7 +59,7 @@ stages:
               git add -A
 
               git remote remove origin
-              git remote add origin https://NateDuff@github.com/NateDuff/Demo.git
+              git remote set-url origin https://NateDuff@github.com/NateDuff/Demo.git
 
               git commit -m "Publishing from Azure DevOps Git"
 
