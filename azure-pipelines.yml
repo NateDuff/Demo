@@ -39,7 +39,12 @@ stages:
             path: s/demo2
           - powershell: | 
               Write-Host "Stage promotion"
-              CD demo
+              CD ../s/demo2
+              
+              ## First time only
+              git init
+
+              CD ../demo
               git checkout $(Build.SourceBranchName)
 
               DIR | ? {$_.Name -notlike ".git*"} | Copy-Item -Destination ../demo2 -Recurse -Force -Verbose
@@ -51,11 +56,9 @@ stages:
               git config user.email $(ghUser)
               git config http.$(ghUser).extraheader "AUTHORIZATION: bearer $(ghPassword)"
 
-              ## First time only
-              git init
-
               git add -A
 
+              git remote remove origin
               git remote add origin https://NateDuff@github.com/NateDuff/Demo.git
 
               git commit -m "Publishing from Azure DevOps Git"
