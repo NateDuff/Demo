@@ -29,7 +29,7 @@ stages:
               
               git config user.name NateDuff
               git config user.email $(ghUser)
-              git config http.extraheader "AUTHORIZATION: bearer $(ghPassword)"
+              git config http.$(ghUser).extraheader "AUTHORIZATION: bearer $(ghPassword)"
               git remote add origin https://github.com/NateDuff/Demo.git
               git branch -M main
               git push -u origin main
