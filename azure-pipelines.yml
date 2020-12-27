@@ -32,6 +32,6 @@ stages:
               git config user.email $(ghUser)
               git config http.$(ghUser).extraheader "AUTHORIZATION: bearer $(ghPassword)"
 
-              git remote add origin https://NateDuff@github.com/NateDuff/Demo.git
+              git remote add origin git@github.com:NateDuff/Demo.git
               git -c http.$(ghUser).extraHeader="Authorization: bearer $(ghPassword)" push -u origin main
               #git@github.com:yourname/yourrepo.git
