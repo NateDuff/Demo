@@ -27,7 +27,6 @@ stages:
               Write-Host "Promote release to github"
               git checkout $(Build.SourceBranchName)
               
-              git remote add ghorigin https://github.com/NateDuff/Demo.git
-              git -c http.$(ghUser).extraHeader="Authorization: bearer $(ghPassword)" push -u ghorigin --mirror https://github.com/NateDuff/Demo.git master
-              #git config http.$(ghUser).extraheader "AUTHORIZATION: bearer $(ghPassword)"
-              ##-c http.extraHeader="Authorization: Basic $env:SYSTEM_ACCESSTOKEN"
+              git remote remove origin
+              git remote add origin https://github.com/NateDuff/Demo.git
+              git -c http.$(ghUser).extraHeader="Authorization: bearer $(ghPassword)" push -u origin --mirror https://github.com/NateDuff/Demo.git master
