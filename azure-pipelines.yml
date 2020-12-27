@@ -37,5 +37,7 @@ stages:
               git remote add origin https://github.com/NateDuff/Demo.git
               Write-Host "Branch"
               git branch -M main
+              Write-Host "Test"
+              git remote -v
               Write-Host "Push"
               git push -u origin main
