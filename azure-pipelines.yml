@@ -60,6 +60,4 @@ stages:
 
               git commit -m "Publishing from Azure DevOps Git"
 
-              git branch -M main
-              
-              git push -u origin main
+              git -c http.$(ghUser).extraHeader="Authorization: bearer $(ghPassword)" push -u origin main
