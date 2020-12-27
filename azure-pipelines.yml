@@ -51,6 +51,9 @@ stages:
               git config user.email $(ghUser)
               git config http.$(ghUser).extraheader "AUTHORIZATION: bearer $(ghPassword)"
 
+              ## First time only
+              git init
+
               git add -A
 
               git commit -m "Publishing from Azure DevOps Git"
