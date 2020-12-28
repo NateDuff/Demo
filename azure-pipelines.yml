@@ -7,8 +7,8 @@ pool:
   vmImage: 'ubuntu-20.04'
 
 variables:
-   major: 1
-   minor: 1
+   major: 0
+   minor: 0
 
 stages:
   - stage: Build
@@ -51,9 +51,11 @@ stages:
             inputs:  
               gitHubConnection: MyGitHubServiceConnection  
               repositoryName: 'NateDuff/Demo'
+              action: 'create'
               tagSource: userSpecifiedTag  
               tag: '$(Build.BuildNumber)'
               title: '$(Build.BuildNumber)'  
               releaseNotesFilePath: './releaseNotes.md'
               assets: '**/*.md'  
+              isPreRelease: true
               addChangeLog: false
