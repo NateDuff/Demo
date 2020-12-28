@@ -4,7 +4,7 @@ trigger:
 - feature*
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-20.04'
 
 stages:
   - stage: Build
