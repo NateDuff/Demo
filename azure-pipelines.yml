@@ -58,5 +58,5 @@ stages:
               releaseNotesFilePath: './releaseNotes.md'
               assets: '**/*.md'  
               addChangeLog: false
-              ${{ eq(variables.major, 0) }}:
+              - ${{ eq(variables.major, 0) }}:
                 isPreRelease: true
