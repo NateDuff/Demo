@@ -56,13 +56,11 @@ stages:
             path: s/Demo
 
           - powershell: |
-              $data = IWR https://github.com/NateDuff/Demo/releases.atom -UseBasicParsing
+              $data = IRM https://github.com/NateDuff/Demo/releases.atom -UseBasicParsing
               
               Write-Host "Data: $data"
 
-              $data = [XML]$data
-
-              $tags = $data.feed.entry.title
+              $tags = $data.title
 
               Write-Host "Tags: $tags"
               
