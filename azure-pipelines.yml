@@ -53,40 +53,35 @@ stages:
                 
                 $releaseNotesPath = "releaseNotes.md"
 
-                $content = "# Application Release Notes"
-                $content = $content += ""
-                $content = $content += "Documented code updates for this release version can be found under either the Enhancement or Fixes lists below."
-                $content = $content += ""
+                $content = "# Application Release Notes \n"
+                $content = $content += "Documented code updates for this release version can be found under either the Enhancement or Fixes lists below. \n"
 
                 $enhancements = @{'id' = 28; 'title' = 'User Story 1'}
                 $fixes = @{'id' = 30; 'title' = 'Bug 1'}
 
                 ## User Stories
-                $content = $content += "## Enhancements:"
-                $content = $content += ""
+                $content = $content += "## Enhancements: \n"
 
                 if ($enhancements) {
                   foreach ($enhancement in $enhancements) {
-                    $content = $content += "* [#$($enhancement.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($enhancement.id))$($enhancement.title)"
+                    $content = $content += "* [#$($enhancement.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($enhancement.id)) $($enhancement.title) \n"
                   }
                 } else {
-                  $content = $content += "* None"
+                  $content = $content += "* None \n"
                 }
 
                 ## Bugs
-                $content = $content += ""
-                $content = $content += "## Fixes:"
-                $content = $content += ""
+                $content = $content += "## Fixes: \n"
 
                 if ($fixes) {
                   foreach ($fix in $fixes) {
-                    $content = $content += "* [#$($fix.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($fix.id))$($fix.title)"
+                    $content = $content += "* [#$($fix.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($fix.id)) $($fix.title) \n"
                   }
                 } else {
-                  $content = $content += "* None"
+                  $content = $content += "* None \n"
                 }
 
-                Set-Content -Path $releaseNotesPath -Value $content -Verbose
+                New-Item -Path $releaseNotesPath -ItemType File -Value $content -Verbose -Force
               displayName: Run Update Release Notes Script
             
             - task: GitHubRelease@1  
