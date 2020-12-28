@@ -56,12 +56,8 @@ stages:
             path: s/Demo
 
           - powershell: |
-              $data = IWR https://github.com/NateDuff/Demo/releases.atom -Headers @{"Accept" = "application/json"}
+              $data = (IWR https://github.com/NateDuff/Demo/releases.atom -Headers @{"Accept" = "application/json"; "Content-Type" = "application/atom+xml"}).Content
               
-              $data = $data.Content
-
-              $data | select *
-
               Write-Host "Data: $data"
 
               $tags = $data.title
