@@ -50,7 +50,11 @@ stages:
 
               Write-Host "Tags: $tags"
               
-              $tags = $tags -join ","
+              if ($tags.Count -gt 1) {
+                $tags = $tags -join ","
+              } else {
+                $tags = ""
+              }
               
               Write-Host "##vso[task.setvariable variable=tags;]$tags"
               Write-Host "Tags: $tags"
@@ -65,7 +69,7 @@ stages:
               gitHubConnection: MyGitHubServiceConnection  
               repositoryName: 'NateDuff/Demo'
               tagSource: userSpecifiedTag  
-              tag: '$(Build.BuildNumber),v1.1.50,$(tags)'
+              tag: '$(Build.BuildNumber),v1.1.50$(tags)'
               title: '$(Build.BuildNumber)'  
               releaseNotesFilePath: './releaseNotes.md'
               assets: '**/*.md'  
