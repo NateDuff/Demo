@@ -71,6 +71,6 @@ stages:
               tagSource: userSpecifiedTag  
               tag: '$(Build.BuildNumber),$(tags)'
               title: '$(Build.BuildNumber)'  
-              releaseNotesFilePath: './Source/releaseNotes.md'
+              releaseNotesFilePath: './releaseNotes.md'
               assets: '**/*.md'  
               addChangeLog: false
