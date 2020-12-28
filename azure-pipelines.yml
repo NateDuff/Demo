@@ -44,7 +44,7 @@ stages:
               SYSTEM_ACCESSTOKEN: $(System.AccessToken)
           
           - bash: |
-              echo "##vso[build.updatebuildnumber]$(major).$(minor)-R.$(patch)"
+              echo "##vso[build.updatebuildnumber]$(major).$(minor).$(patch)"
           
           - task: GitHubRelease@1  
             displayName: Create GitHub Release  
