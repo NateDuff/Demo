@@ -72,7 +72,7 @@ stages:
             - powershell: |
                 Write-Host "Create Release Notes markdown"
                 
-                $releaseNotesPath = "$(BUILD_ARTIFACTSTAGINGDIRECTORY)/releaseNotes.md"
+                $releaseNotesPath = "$(Build.ArtifactStagingDirectory)/releaseNotes.md"
 
                 $content = "# Application Release Notes 
                 "
@@ -112,7 +112,7 @@ stages:
 
                 New-Item -Path $releaseNotesPath -ItemType File -Value $content -Verbose -Force
 
-                Write-Host "##vso[build.uploadlog]$(BUILD_ARTIFACTSTAGINGDIRECTORY)/releaseNotes.md"
+                Write-Host "##vso[build.uploadlog]$(Build.ArtifactStagingDirectory)/releaseNotes.md"
               displayName: Run Update Release Notes Script
             
             - task: GitHubRelease@1  
@@ -124,7 +124,7 @@ stages:
                 tagSource: userSpecifiedTag  
                 tag: '$(Build.BuildNumber)'
                 title: '$(Build.BuildNumber)'  
-                releaseNotesFilePath: '$(BUILD_ARTIFACTSTAGINGDIRECTORY)/releaseNotes.md'
+                releaseNotesFilePath: '$(Build.ArtifactStagingDirectory)/releaseNotes.md'
                 assets: '**/*.md'  
                 addChangeLog: false
                 ${{ if eq(variables.major, 0) }}:
