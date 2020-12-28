@@ -56,10 +56,12 @@ stages:
             path: s/Demo
 
           - powershell: |
-              $tags = git ls-remote --tags --sort=committerdate -q
+              $tags = ([XML](IWR https://github.com/NateDuff/Demo/releases.atom)).feed.entry.title
+              
               Write-Host "Tags: $tags"
-              $tags = $tags | foreach {$_.Substring($_.IndexOf("/v") + 1)}
+              
               $tags = $tags -join ","
+              
               Write-Host "##vso[task.setvariable variable=tags;]$tags"
               Write-Host "Tags: $tags"
             workingDirectory: Demo
