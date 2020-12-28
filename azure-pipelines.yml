@@ -56,8 +56,12 @@ stages:
             path: s/Demo
 
           - powershell: |
-              $tags = ([XML](IWR https://github.com/NateDuff/Demo/releases.atom -UseBasicParsing)).feed.entry.title
+              $data = [XML](IWR https://github.com/NateDuff/Demo/releases.atom -UseBasicParsing)
               
+              Write-Host "Data: $data"
+
+              $tags = $data.feed.entry.title
+
               Write-Host "Tags: $tags"
               
               $tags = $tags -join ","
