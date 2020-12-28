@@ -56,7 +56,7 @@ stages:
             path: s/Demo
 
           - powershell: |
-              $data = IRM https://github.com/NateDuff/Demo/releases.atom -UseBasicParsing -ContentType application/json -Headers @{"Accept" = "application/json"}
+              $data = IWR https://github.com/NateDuff/Demo/releases.atom
               
               Write-Host "Data: $data"
 
