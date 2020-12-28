@@ -43,6 +43,9 @@ stages:
             env:
               SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
+          - script: | 
+              curl -H 'Content-Type: application/json' https://github.com/NateDuff/Demo/releases.atom
+              
           - pwsh: |
               $data = IRM https://$(GHPAT)@github.com/NateDuff/Demo/releases.atom -UseBasicParsing
               
