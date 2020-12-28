@@ -67,8 +67,8 @@ stages:
 
                 if ($enhancements) {
                   foreach ($enhancement in $enhancements) {
-                    $content = $content += "* [#$($enhancement.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($enhancement.id)) $($enhancement.title) 
-                    "
+                  $content = $content += "* [#$($enhancement.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($enhancement.id)) $($enhancement.title) 
+                  "
                   }
                 } else {
                   $content = $content += "* None 
@@ -81,8 +81,8 @@ stages:
 
                 if ($fixes) {
                   foreach ($fix in $fixes) {
-                    $content = $content += "* [#$($fix.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($fix.id)) $($fix.title) 
-                    "
+                  $content = $content += "* [#$($fix.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($fix.id)) $($fix.title) 
+                  "
                   }
                 } else {
                   $content = $content += "* None
