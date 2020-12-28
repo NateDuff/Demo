@@ -16,7 +16,7 @@ stages:
       - job: buildApp
         displayName: Build Application
         steps:
-          - powershell: | 
+          - powershell: |
               Write-Host "Build application build step"
               Get-ChildItem Env:
             displayName: Run Build Application Script
@@ -65,7 +65,10 @@ stages:
             
             - powershell: |
                 Write-Host "##vso[build.updatebuildnumber]v$(major).$(minor).$(patch)"
-                Write-Host "##vso[build.sourceversionmessage] - Release"
+                
+                Write-Host "##vso[build.addbuildtag]v$(major).$(minor).$(patch)"
+
+                Write-Host "##vso[task.setvariable variable=BUILD_SOURCEVERSIONMESSAGE;] - Release"
               displayName: Run Update Build Number Script
 
             - powershell: |
@@ -110,6 +113,8 @@ stages:
                 }
 
                 New-Item -Path $releaseNotesPath -ItemType File -Value $content -Verbose -Force
+
+                Write-Host "##vso[build.uploadlog].\releaseNotes.md"
               displayName: Run Update Release Notes Script
             
             - task: GitHubRelease@1  
