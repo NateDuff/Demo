@@ -58,6 +58,7 @@ stages:
               $tags = git ls-remote --tags --sort=committerdate | foreach {$_.Substring($_.IndexOf("/v") + 1)}
               $tags = $tags -join ";"
               Write-Host "##vso[task.setvariable variable=tags;]$tags"
+            workingDirectory: Demo
             displayName: Get Latest Tags
           
           - powershell: |
