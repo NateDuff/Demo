@@ -20,11 +20,29 @@ stages:
               Write-Host "Build application build step"
             displayName: Run Build Application Script
 
-  - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
-    - stage: Promotion
+  - ${{ if and(eq(variables['Build.SourceBranchName'], 'development'), eq(variables['Build.Reason'], 'IndividualCI')) }}:
+    - stage: developmentPromotion
+      displayName: Development Promotion
       jobs:
-        - job: promotion
-          displayName: Release Promotion
+        - job: mainPromotion
+          displayName: Main Branch Promotion
+          steps:
+            - checkout: self
+              persistCredentials: true
+
+            - powershell: |
+                git checkout development
+                git -c http.extraHeader="Authorization: Basic $env:Token" push origin HEAD:main
+              displayName: Run Main Branch Promo Script
+              env:
+                Token: $(System.AccessToken)
+                
+  - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+    - stage: gitHubPromotion
+      displayName: GitHub Promotion
+      jobs:
+        - job: externalPromotion
+          displayName: GitHub Release Promotion
           variables:
             patch: $[counter(variables['Build.SourceBranchName'], 0)]
           steps:
