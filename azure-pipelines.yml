@@ -43,16 +43,9 @@ stages:
             env:
               SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
-          - script: | 
-              curl -H 'Content-Type: application/json' https://github.com/NateDuff/Demo/releases.atom
-              
           - pwsh: |
               $data = IRM https://$(GHPAT)@github.com/NateDuff/Demo/releases.atom -UseBasicParsing
               
-              $data | select * 
-
-              Write-Host "Data: $data"
-
               $tags = $data.title
 
               Write-Host "Tags: $tags"
@@ -72,7 +65,7 @@ stages:
               gitHubConnection: MyGitHubServiceConnection  
               repositoryName: 'NateDuff/Demo'
               tagSource: userSpecifiedTag  
-              tag: '$(Build.BuildNumber),$(tags)'
+              tag: '$(Build.BuildNumber),v1.1.50,$(tags)'
               title: '$(Build.BuildNumber)'  
               releaseNotesFilePath: './releaseNotes.md'
               assets: '**/*.md'  
