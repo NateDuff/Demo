@@ -35,6 +35,7 @@ stages:
             displayName: Promotion Script
             env:
               SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+          
           - task: GitHubRelease@1  
             displayName: Create GitHub Release  
             inputs:  
