@@ -58,8 +58,8 @@ stages:
                 $content = $content += "Documented code updates for this release version can be found under either the Enhancement or Fixes lists below. 
                 "
 
-                $enhancements = @{'id' = 28; 'title' = 'User Story 1'}
-                $fixes = @{'id' = 30; 'title' = 'Bug 1'}
+                $enhancements = @(@{'id' = 28; 'title' = 'User Story 1'}, @{'id' = 29; 'title' = 'User Story 2'})
+                $fixes = @(@{'id' = 30; 'title' = 'Bug 1'}, @{'id' = 31; 'title' = 'Bug 2'})
 
                 ## User Stories
                 $content = $content += "## Enhancements: 
