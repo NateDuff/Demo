@@ -49,12 +49,17 @@ stages:
               displayName: Run Update Build Number Script
 
             - powershell: |
-                Write-Host "Update local release notes with work items"
-                $enhancements = @{'id' = 28; 'title' = 'User Story 1'}
-                $bugs = @{'id' = 30; 'title' = 'Bug 1'}
-
+                Write-Host "Create Release Notes markdown"
+                
                 $releaseNotesPath = "releaseNotes.md"
-                $content = Get-Content $releaseNotesPath
+
+                $content = "# Application Release Notes"
+                $content = $content += ""
+                $content = $content += "Documented code updates for this release version can be found under either the Enhancement or Fixes lists below."
+                $content = $content += ""
+
+                $enhancements = @{'id' = 28; 'title' = 'User Story 1'}
+                $fixes = @{'id' = 30; 'title' = 'Bug 1'}
 
                 ## User Stories
                 $content = $content += "## Enhancements:"
