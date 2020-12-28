@@ -53,9 +53,10 @@ stages:
               SYSTEM_ACCESSTOKEN: $(System.AccessToken)
             
           - checkout: Demo
+            path: s/Demo
 
           - powershell: |
-              $tags = git ls-remote --tags --sort=committerdate
+              $tags = git ls-remote --tags --sort=committerdate -q
               Write-Host "Tags: $tags"
               $tags = $tags | foreach {$_.Substring($_.IndexOf("/v") + 1)}
               $tags = $tags -join ","
