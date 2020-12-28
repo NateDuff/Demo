@@ -56,7 +56,7 @@ stages:
             path: s/Demo
 
           - pwsh: |
-              $releasePath = $env:TEMP/release.xml
+              $releasePath = "$env:TEMP/release.xml"
 
               IRM https://github.com/NateDuff/Demo/releases.atom -UseBasicParsing -OutFile $releasePath
               
