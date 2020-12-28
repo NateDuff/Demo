@@ -6,6 +6,12 @@ trigger:
 pool:
   vmImage: 'ubuntu-20.04'
 
+variables:
+   major: 1
+   minor: 1
+
+name: $(major).$(minor)$(Rev:.r)
+
 stages:
   - stage: Build
     jobs:
@@ -20,8 +26,11 @@ stages:
     jobs:
       - job: promotion
         displayName: Release Promotion
+        variables:
+          patch: $[counter(variables['build.sourcebranchname'], 0)]
         steps:
           - checkout: self
+
           - powershell: | 
               Write-Host "Stage promotion"
 
@@ -35,6 +44,9 @@ stages:
             displayName: Promotion Script
             env:
               SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+          
+          - bash: |
+              echo "##vso[build.updatebuildnumber]$(major).$(minor)-R.$(patch)"
           
           - task: GitHubRelease@1  
             displayName: Create GitHub Release  
