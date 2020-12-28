@@ -57,5 +57,6 @@ stages:
               title: '$(Build.BuildNumber)'  
               releaseNotesFilePath: './releaseNotes.md'
               assets: '**/*.md'  
-              isPreRelease: true
               addChangeLog: false
+              ${{ eq(variables.major, 0) }}:
+                isPreRelease: true
