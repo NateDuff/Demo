@@ -45,7 +45,14 @@ stages:
                 SYSTEM_ACCESSTOKEN: $(System.AccessToken)
             
             - powershell: |
+                Write-Host "Updating Build Number"
                 Write-Host "##vso[build.updatebuildnumber]v$(major).$(minor).$(patch)"
+
+                Write-Host "Pulling Git Tags"
+                $tags = git ls-remote --tags --sort=committerdate -q https://$(GHPAT)@github.com/NateDuff/Demo.git | foreach {$_.Substring($_.IndexOf("/v") + 1)}
+                $tags = $tags -join ", "
+                Write-Host "##vso[task.setvariable variable=tags;isoutput=true]$tags"
+                Write-Host "Tags: $tags"
             
             - task: GitHubRelease@1  
               displayName: Create GitHub Release  
@@ -61,3 +68,7 @@ stages:
                 addChangeLog: false
                 ${{ if eq(variables.major, 0) }}:
                   isPreRelease: true
+
+            - powershell: |
+                Write-Host "Re-Publishing Tags (TODO: Figure this out)"
+                
