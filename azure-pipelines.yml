@@ -67,14 +67,12 @@ stages:
                 Write-Host "##vso[build.updatebuildnumber]v$(major).$(minor).$(patch)"
                 
                 Write-Host "##vso[build.addbuildtag]v$(major).$(minor).$(patch)"
-
-                Write-Host "##vso[task.setvariable variable=BUILD_SOURCEVERSIONMESSAGE;] - Release"
               displayName: Run Update Build Number Script
 
             - powershell: |
                 Write-Host "Create Release Notes markdown"
                 
-                $releaseNotesPath = "releaseNotes.md"
+                $releaseNotesPath = "$(BUILD_ARTIFACTSTAGINGDIRECTORY)/releaseNotes.md"
 
                 $content = "# Application Release Notes 
                 "
@@ -114,7 +112,7 @@ stages:
 
                 New-Item -Path $releaseNotesPath -ItemType File -Value $content -Verbose -Force
 
-                Write-Host "##vso[build.uploadlog].\releaseNotes.md"
+                Write-Host "##vso[build.uploadlog]$(BUILD_ARTIFACTSTAGINGDIRECTORY)/releaseNotes.md"
               displayName: Run Update Release Notes Script
             
             - task: GitHubRelease@1  
@@ -126,7 +124,7 @@ stages:
                 tagSource: userSpecifiedTag  
                 tag: '$(Build.BuildNumber)'
                 title: '$(Build.BuildNumber)'  
-                releaseNotesFilePath: './releaseNotes.md'
+                releaseNotesFilePath: '$(BUILD_ARTIFACTSTAGINGDIRECTORY)/releaseNotes.md'
                 assets: '**/*.md'  
                 addChangeLog: false
                 ${{ if eq(variables.major, 0) }}:
