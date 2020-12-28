@@ -53,39 +53,39 @@ stages:
                 
                 $releaseNotesPath = "releaseNotes.md"
 
-                $content = "# Application Release Notes 
+                $content = "# Application Release Notes \
                 "
-                $content = $content += "Documented code updates for this release version can be found under either the Enhancement or Fixes lists below. 
+                $content = $content += "Documented code updates for this release version can be found under either the Enhancement or Fixes lists below. \
                 "
 
                 $enhancements = @{'id' = 28; 'title' = 'User Story 1'}
                 $fixes = @{'id' = 30; 'title' = 'Bug 1'}
 
                 ## User Stories
-                $content = $content += "## Enhancements: 
+                $content = $content += "## Enhancements: \
                 "
 
                 if ($enhancements) {
                   foreach ($enhancement in $enhancements) {
-                    $content = $content += "* [#$($enhancement.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($enhancement.id)) $($enhancement.title) 
+                    $content = $content += "* [#$($enhancement.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($enhancement.id)) $($enhancement.title) \
                     "
                   }
                 } else {
-                  $content = $content += "* None 
+                  $content = $content += "* None \
                   "
                 }
 
                 ## Bugs
-                $content = $content += "## Fixes: 
+                $content = $content += "## Fixes: \
                 "
 
                 if ($fixes) {
                   foreach ($fix in $fixes) {
-                    $content = $content += "* [#$($fix.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($fix.id)) $($fix.title) 
+                    $content = $content += "* [#$($fix.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($fix.id)) $($fix.title) \
                     "
                   }
                 } else {
-                  $content = $content += "* None
+                  $content = $content += "* None \
                   "
                 }
 
