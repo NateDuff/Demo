@@ -4,11 +4,11 @@ trigger:
 - feature*
 
 pool:
-  vmImage: 'ubuntu-20.04'
+  vmImage: ubuntu-20.04
 
 variables:
-   major: 0
-   minor: 0
+  major: 0
+  minor: 0
 
 stages:
   - stage: Build
@@ -20,43 +20,44 @@ stages:
               Write-Host "Build application step"
             displayName: Run Build Application Script
 
-  - stage: Promotion
-    jobs:
-      - job: promotion
-        displayName: Release Promotion
-        variables:
-          patch: $[counter(variables['build.sourcebranchname'], 0)]
-        steps:
-          - checkout: self
+  - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+    - stage: Promotion
+      jobs:
+        - job: promotion
+          displayName: Release Promotion
+          variables:
+            patch: $[counter(variables['build.sourcebranchname'], 0)]
+          steps:
+            - checkout: self
 
-          - powershell: | 
-              Write-Host "Stage promo"
+            - powershell: | 
+                Write-Host "Stage promo"
 
-              git checkout $(Build.SourceBranchName)
+                git checkout $(Build.SourceBranchName)
 
-              git clone --mirror https://$env:SYSTEM_ACCESSTOKEN@dev.azure.com/NateDuff/Duff%20Blog/_git/Demo .
+                git clone --mirror https://$env:SYSTEM_ACCESSTOKEN@dev.azure.com/NateDuff/Duff%20Blog/_git/Demo .
 
-              git remote add GHorigin https://github.com/NateDuff/Demo.git
+                git remote add GHorigin https://github.com/NateDuff/Demo.git
 
-              git push --mirror https://$(GHPAT)@github.com/NateDuff/Demo.git
-            displayName: Promotion Script
-            env:
-              SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-          
-          - powershell: |
-              Write-Host "##vso[build.updatebuildnumber]v$(major).$(minor).$(patch)"
-          
-          - task: GitHubRelease@1  
-            displayName: Create GitHub Release  
-            inputs:  
-              gitHubConnection: MyGitHubServiceConnection  
-              repositoryName: 'NateDuff/Demo'
-              action: 'create'
-              tagSource: userSpecifiedTag  
-              tag: '$(Build.BuildNumber)'
-              title: '$(Build.BuildNumber)'  
-              releaseNotesFilePath: './releaseNotes.md'
-              assets: '**/*.md'  
-              addChangeLog: false
-              ${{ if eq(variables.major, 0) }}:
-                isPreRelease: true
+                git push --mirror https://$(GHPAT)@github.com/NateDuff/Demo.git
+              displayName: Promotion Script
+              env:
+                SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+            
+            - powershell: |
+                Write-Host "##vso[build.updatebuildnumber]v$(major).$(minor).$(patch)"
+            
+            - task: GitHubRelease@1  
+              displayName: Create GitHub Release  
+              inputs:  
+                gitHubConnection: MyGitHubServiceConnection  
+                repositoryName: 'NateDuff/Demo'
+                action: 'create'
+                tagSource: userSpecifiedTag  
+                tag: '$(Build.BuildNumber)'
+                title: '$(Build.BuildNumber)'  
+                releaseNotesFilePath: './releaseNotes.md'
+                assets: '**/*.md'  
+                addChangeLog: false
+                ${{ if eq(variables.major, 0) }}:
+                  isPreRelease: true
