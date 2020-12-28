@@ -39,8 +39,12 @@ stages:
             displayName: Create GitHub Release  
             inputs:  
               gitHubConnection: MyGitHubServiceConnection  
+              repositoryName: 'NateDuff/Demo'
               tagSource: userSpecifiedTag  
               tag: '$(Build.BuildNumber)'  
               title: '$(Build.BuildNumber)'  
+              releaseNotesSource: 'inline'
+              releaseNotesInline: '## Notes'
               assets: '**/*.md'  
               changeLogCompareToRelease: lastNonDraftRelease 
+              changeLogType: 'commitBased'
