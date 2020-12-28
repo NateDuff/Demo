@@ -42,23 +42,6 @@ stages:
             displayName: Promotion Script
             env:
               SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-
-          - pwsh: |
-              $data = IRM https://$(GHPAT)@github.com/NateDuff/Demo/releases.atom -UseBasicParsing
-              
-              $tags = $data.title
-
-              Write-Host "Tags: $tags"
-              
-              if ($tags.Count -gt 1) {
-                $tags = $tags -join ","
-              } else {
-                $tags = ""
-              }
-              
-              Write-Host "##vso[task.setvariable variable=tags;]$tags"
-              Write-Host "Tags: $tags"
-            displayName: Get Latest Tags
           
           - powershell: |
               Write-Host "##vso[build.updatebuildnumber]v$(major).$(minor).$(patch)"
@@ -69,7 +52,7 @@ stages:
               gitHubConnection: MyGitHubServiceConnection  
               repositoryName: 'NateDuff/Demo'
               tagSource: userSpecifiedTag  
-              tag: '$(Build.BuildNumber), v1.1.50$(tags)'
+              tag: '$(Build.BuildNumber)'
               title: '$(Build.BuildNumber)'  
               releaseNotesFilePath: './releaseNotes.md'
               assets: '**/*.md'  
