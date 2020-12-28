@@ -47,5 +47,4 @@ stages:
               releaseNotesSource: 'inline'
               releaseNotesInline: '## Notes'
               assets: '**/*.md'  
-              changeLogCompareToRelease: lastNonDraftRelease 
-              changeLogType: 'commitBased'
+              addChangeLog: false
