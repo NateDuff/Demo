@@ -56,7 +56,7 @@ stages:
 
           - powershell: |
               $tags = git ls-remote --tags --sort=committerdate | foreach {$_.Substring($_.IndexOf("/v") + 1)}
-              $tags = $tags -join ";"
+              $tags = $tags -join ","
               Write-Host "##vso[task.setvariable variable=tags;]$tags"
             workingDirectory: Demo
             displayName: Get Latest Tags
@@ -70,7 +70,7 @@ stages:
               gitHubConnection: MyGitHubServiceConnection  
               repositoryName: 'NateDuff/Demo'
               tagSource: 'gitTag'
-              tagPattern: '$(Build.BuildNumber);$tags'
+              tagPattern: '$(Build.BuildNumber),$tags'
               title: '$(Build.BuildNumber)'  
               releaseNotesFilePath: './releaseNotes.md'
               assets: '**/*.md'  
