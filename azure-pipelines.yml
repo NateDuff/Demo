@@ -45,14 +45,17 @@ stages:
           
           - powershell: |
               Write-Host "##vso[build.updatebuildnumber]v$(major).$(minor).$(patch)"
+              $tags = git ls-remote --tags --sort=committerdate | foreach {$_.Substring($_.IndexOf("/v") + 1)}
+              $tags = $tags -join ";"
+              Write-Host "##vso[task.setvariable variable=tags;]$tags"
           
           - task: GitHubRelease@1  
             displayName: Create GitHub Release  
             inputs:  
               gitHubConnection: MyGitHubServiceConnection  
               repositoryName: 'NateDuff/Demo'
-              tagSource: userSpecifiedTag  
-              tag: '$(Build.BuildNumber)'  
+              tagSource: 'gitTag'
+              tagPattern: '$(Build.BuildNumber)'
               title: '$(Build.BuildNumber)'  
               releaseNotesFilePath: './releaseNotes.md'
               assets: '**/*.md'  
