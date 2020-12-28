@@ -69,7 +69,7 @@ stages:
               gitHubConnection: MyGitHubServiceConnection  
               repositoryName: 'NateDuff/Demo'
               tagSource: userSpecifiedTag  
-              tag: '$(Build.BuildNumber),v1.1.50$(tags)'
+              tag: '$(Build.BuildNumber), v1.1.50$(tags)'
               title: '$(Build.BuildNumber)'  
               releaseNotesFilePath: './releaseNotes.md'
               assets: '**/*.md'  
