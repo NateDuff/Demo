@@ -55,7 +55,7 @@ stages:
           - checkout: Demo
             path: s/Demo
 
-          - powershell: |
+          - pwsh: |
               $data = (IWR https://github.com/NateDuff/Demo/releases.atom -UseBasicParsing -ContentType application/xml).Content
               
               Write-Host "Data: $data"
