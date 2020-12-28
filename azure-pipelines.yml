@@ -58,7 +58,7 @@ stages:
           - powershell: |
               $data = IWR https://github.com/NateDuff/Demo/releases.atom
               
-              Write-Host "Data: $data"
+              $data | select *
 
               $tags = $data.title
 
