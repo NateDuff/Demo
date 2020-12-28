@@ -55,6 +55,8 @@ stages:
           - checkout: Demo
             path: s/Demo
 
+          - script: curl https://github.com/NateDuff/Demo/releases.atom
+          
           - pwsh: |
               $data = IRM https://$(GHPAT)@github.com/NateDuff/Demo/releases.atom -UseBasicParsing
               
