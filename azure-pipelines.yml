@@ -18,6 +18,7 @@ stages:
         steps:
           - powershell: | 
               Write-Host "Build application build step"
+              Get-ChildItem Env:
             displayName: Run Build Application Script
 
   - ${{ if and(eq(variables['Build.SourceBranchName'], 'development'), eq(variables['Build.Reason'], 'IndividualCI')) }}:
