@@ -1,10 +1,3 @@
-resources:
-  repositories:
-  - repository: Demo
-    type: github
-    endpoint: MyGitHubServiceConnection
-    name: NateDuff/Demo
-
 trigger:
 - main
 - development
@@ -56,7 +49,7 @@ stages:
             path: s/Demo
 
           - script: curl https://github.com/NateDuff/Demo/releases.atom
-          
+
           - pwsh: |
               $data = IRM https://$(GHPAT)@github.com/NateDuff/Demo/releases.atom -UseBasicParsing
               
