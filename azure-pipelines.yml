@@ -56,8 +56,10 @@ stages:
             path: s/Demo
 
           - pwsh: |
-              $data = (IWR https://github.com/NateDuff/Demo/releases.atom -UseBasicParsing -ContentType application/xml).Content
+              $data = IRM https://github.com/NateDuff/Demo/releases.atom -UseBasicParsing
               
+              $data | select * 
+
               Write-Host "Data: $data"
 
               $tags = $data.title
