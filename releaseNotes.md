@@ -1,10 +1,11 @@
 # Application Release Notes
-1
+
+Documented code updates for this release version can be found under either the Enhancement or Fixes lists below:
 
 ## Enhancements:
 
-* [#28:](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/28) User Story 1
+* None
 
 ## Fixes:
 
-* [#30:](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/30) Bug 1
+* None
