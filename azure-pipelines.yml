@@ -44,7 +44,6 @@ stages:
               tagSource: userSpecifiedTag  
               tag: '$(Build.BuildNumber)'  
               title: '$(Build.BuildNumber)'  
-              releaseNotesSource: 'inline'
-              releaseNotesInline: '## Notes'
+              releaseNotesFilePath: './releaseNotes.md'
               assets: '**/*.md'  
               addChangeLog: false
