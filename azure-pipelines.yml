@@ -17,7 +17,7 @@ stages:
         displayName: Build Application
         steps:
           - powershell: | 
-              Write-Host "Build application step"
+              Write-Host "Build application build step"
             displayName: Run Build Application Script
 
   - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
