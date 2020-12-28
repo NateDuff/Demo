@@ -35,6 +35,7 @@ stages:
           patch: $[counter(variables['build.sourcebranchname'], 0)]
         steps:
           - checkout: self
+            path: s/Source
 
           - powershell: | 
               Write-Host "Stage promo"
@@ -47,6 +48,7 @@ stages:
 
               git push --mirror https://$(GHPAT)@github.com/NateDuff/Demo.git
             displayName: Promotion Script
+            workingDirectory: Source
             env:
               SYSTEM_ACCESSTOKEN: $(System.AccessToken)
             
