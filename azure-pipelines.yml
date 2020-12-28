@@ -56,7 +56,7 @@ stages:
             path: s/Demo
 
           - pwsh: |
-              IWR https://github.com/NateDuff/Demo/releases.atom -UseBasicParsing -OutFile release.xml
+              IWR https://github.com/NateDuff/Demo/releases.atom -UseBasicParsing -OutFile release.xml -Headers @{Accept = "application/json; charset=utf-8"}
               
               $data = Get-Content release.xml -Raw
 
