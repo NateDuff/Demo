@@ -17,7 +17,7 @@ stages:
         displayName: Build Application
         steps:
           - powershell: | 
-              Write-Host "##vso[task.setvariable variable=build_sourceversionmessage;] - Release"
+              Write-Host "##vso[task.setvariable variable=BUILD_SOURCEVERSIONMESSAGE;] - Release"
               Write-Host "Build application build step"
               Get-ChildItem Env:
             displayName: Run Build Application Script
@@ -66,7 +66,7 @@ stages:
             
             - powershell: |
                 Write-Host "##vso[build.updatebuildnumber]v$(major).$(minor).$(patch)"
-                Write-Host "##vso[task.setvariable variable=build_sourceversionmessage;] - Release"
+                Write-Host "##vso[task.setvariable variable=BUILD_SOURCEVERSIONMESSAGE;] - Release"
               displayName: Run Update Build Number Script
 
             - powershell: |
