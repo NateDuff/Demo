@@ -30,7 +30,7 @@ stages:
           - checkout: self
 
           - powershell: | 
-              Write-Host "Stage promotion"
+              Write-Host "Stage promo"
 
               git checkout $(Build.SourceBranchName)
 
