@@ -56,9 +56,11 @@ stages:
             path: s/Demo
 
           - powershell: |
-              $data = IWR https://github.com/NateDuff/Demo/releases.atom
+              $data = IRM https://github.com/NateDuff/Demo/releases.atom -UseBasicParsing -ContentType application/json -Headers @{"Accept" = "application/json"}
               
               $data | select *
+
+              Write-Host "Data: $data"
 
               $tags = $data.title
 
