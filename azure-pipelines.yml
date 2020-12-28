@@ -26,7 +26,7 @@ stages:
         - job: promotion
           displayName: Release Promotion
           variables:
-            patch: $[counter(variables['build.sourcebranchname'], 0)]
+            patch: $[counter(variables['Build.SourceBranchName'], 0)]
           steps:
             - checkout: self
 
@@ -40,19 +40,49 @@ stages:
                 git remote add GHorigin https://github.com/NateDuff/Demo.git
 
                 git push --all https://$(GHPAT)@github.com/NateDuff/Demo.git
-              displayName: Promotion Script
+              displayName: Run Promotion Script
               env:
                 SYSTEM_ACCESSTOKEN: $(System.AccessToken)
             
             - powershell: |
-                Write-Host "Updating Build Number"
                 Write-Host "##vso[build.updatebuildnumber]v$(major).$(minor).$(patch)"
+              displayName: Run Update Build Number Script
 
-                Write-Host "Pulling Git Tags"
-                $tags = git ls-remote --tags --sort=committerdate -q https://$(GHPAT)@github.com/NateDuff/Demo.git | foreach {$_.Substring($_.IndexOf("/v") + 1)}
-                $tags = $tags -join ", "
-                Write-Host "##vso[task.setvariable variable=tags;isoutput=true]$tags"
-                Write-Host "Tags: $tags"
+            - powershell: |
+                Write-Host "Update local release notes with work items"
+                $enhancements = @{'id' = 28; 'title' = 'User Story 1'}
+                $bugs = @{'id' = 30; 'title' = 'Bug 1'}
+
+                $releaseNotesPath = "releaseNotes.md"
+                $content = Get-Content $releaseNotesPath
+
+                ## User Stories
+                $content = $content += "## Enhancements:"
+                $content = $content += ""
+
+                if ($enhancements) {
+                  foreach ($enhancement in $enhancements) {
+                    $content = $content += "* [#$($enhancement.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($enhancement.id))$($enhancement.title)"
+                  }
+                } else {
+                  $content = $content += "* None"
+                }
+
+                ## Bugs
+                $content = $content += ""
+                $content = $content += "## Fixes:"
+                $content = $content += ""
+
+                if ($fixes) {
+                  foreach ($fix in $fixes) {
+                    $content = $content += "* [#$($fix.id):](https://dev.azure.com/NateDuff/Terraform/_workitems/edit/$($fix.id))$($fix.title)"
+                  }
+                } else {
+                  $content = $content += "* None"
+                }
+
+                Set-Content -Path $releaseNotesPath -Value $content -Verbose
+              displayName: Run Update Release Notes Script
             
             - task: GitHubRelease@1  
               displayName: Create GitHub Release  
@@ -68,7 +98,4 @@ stages:
                 addChangeLog: false
                 ${{ if eq(variables.major, 0) }}:
                   isPreRelease: true
-
-            - powershell: |
-                Write-Host "Re-Publishing Tags (TODO: Figure this out)"
                 
