@@ -43,8 +43,8 @@ stages:
             env:
               SYSTEM_ACCESSTOKEN: $(System.AccessToken)
           
-          - bash: |
-              echo "##vso[build.updatebuildnumber]$(major).$(minor).$(patch)"
+          - powershell: |
+              Write-Host "##vso[build.updatebuildnumber]$(major).$(minor).$(patch)"
           
           - task: GitHubRelease@1  
             displayName: Create GitHub Release  
