@@ -56,10 +56,8 @@ stages:
             path: s/Demo
 
           - pwsh: |
-              IRM https://github.com/NateDuff/Demo/releases.atom -ContentType "application/atom+xml; charset=utf-8" -UseBasicParsing -OutFile release.xml -Headers @{Accept = "application/atom+xml; charset=utf-8"}
+              $data = IRM https://$(GHPAT)@github.com/NateDuff/Demo/releases.atom -UseBasicParsing
               
-              $data = Get-Content release.xml -Raw
-
               $data | select * 
 
               Write-Host "Data: $data"
