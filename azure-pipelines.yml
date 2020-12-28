@@ -1,3 +1,10 @@
+resources:
+  repositories:
+  - repository: Demo
+    type: github
+    endpoint: MyGitHubServiceConnection
+    name: NateDuff/Demo
+
 trigger:
 - main
 - development
@@ -39,13 +46,17 @@ stages:
               git remote add GHorigin https://github.com/NateDuff/Demo.git
 
               git push --mirror https://$(GHPAT)@github.com/NateDuff/Demo.git
-
-              $tags = git ls-remote --tags --sort=committerdate | foreach {$_.Substring($_.IndexOf("/v") + 1)}
-              $tags = $tags -join ";"
-              Write-Host "##vso[task.setvariable variable=tags;]$tags"
             displayName: Promotion Script
             env:
               SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+            
+          - checkout: Demo
+
+          - powershell: |
+              $tags = git ls-remote --tags --sort=committerdate | foreach {$_.Substring($_.IndexOf("/v") + 1)}
+              $tags = $tags -join ";"
+              Write-Host "##vso[task.setvariable variable=tags;]$tags"
+            displayName: Get Latest Tags
           
           - powershell: |
               Write-Host "##vso[build.updatebuildnumber]v$(major).$(minor).$(patch)"
