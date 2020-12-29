@@ -48,7 +48,7 @@ stages:
             displayName: 'Publish code coverage from Jest tests'
             inputs:
               codeCoverageTool: Cobertura
-              summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml'
+              summaryFileLocation: '**/coverage/cobertura-coverage.xml'
               failIfCoverageEmpty: true
           
           - task: PublishBuildArtifacts@1
@@ -61,7 +61,7 @@ stages:
           - task: PublishBuildArtifacts@1
             condition: failed()
             inputs:
-              PathtoPublish: $(System.DefaultWorkingDirectory)
+              PathtoPublish: $(System.DefaultWorkingDirectory)/App/integration
               ArtifactName: drop
               publishLocation: Container
 
