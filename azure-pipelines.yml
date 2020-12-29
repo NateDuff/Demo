@@ -20,6 +20,19 @@ stages:
               Write-Host "Build application build step"
               Get-ChildItem Env:
             displayName: Run Build Application Script
+      - job: testApp
+        displayName: Run Puppeeteer Tests
+        steps:
+          - powershell: |
+              npm i
+              npm i -d
+            displayName: Install NPM Modules
+            workingDirectory: App
+          
+          - powershell: |
+              npm run test:integration
+            displayName: Install Puppeteer
+            workingDirectory: App
 
   - ${{ if and(eq(variables['Build.SourceBranchName'], 'development'), eq(variables['Build.Reason'], 'IndividualCI')) }}:
     - stage: developmentPromotion
