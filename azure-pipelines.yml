@@ -37,6 +37,12 @@ stages:
               Move-Item -Path ../screenshots -Destination $(Build.ArtifactStagingDirectory) -Force -Verbose
             displayName: Run Puppeteer Tests
             workingDirectory: App
+
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: '**/junit.xml'
+              failTaskOnFailedTests: true
           
           - task: PublishBuildArtifacts@1
             inputs:
