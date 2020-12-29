@@ -11,7 +11,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "test:integration": "jest -c integration/jest.config.js --ci --reporters=jest-junit --reporters=default --coverage --coverageReporters=cobertura --coverageReporters=html",
+    "test:integration": "jest -c integration/jest.config.js --ci --reporters=jest-junit --reporters=default --coverage --coverageReporters=cobertura",
     "test:integrationWithWatch": "jest -c integration/jest.config.js --watch",
     "eject": "react-scripts eject"
   },
