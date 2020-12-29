@@ -52,7 +52,7 @@ stages:
               failIfCoverageEmpty: true
           
           - task: PublishBuildArtifacts@1
-            condition: succeded()
+            condition: succeeded()
             inputs:
               PathtoPublish: $(Build.ArtifactStagingDirectory)
               ArtifactName: images
