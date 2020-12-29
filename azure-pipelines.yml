@@ -30,9 +30,19 @@ stages:
             workingDirectory: App
           
           - powershell: |
+              mkdir ../screenshots
+
               npm run test:integration
-            displayName: Install Puppeteer
+
+              Move-Item -Path ../screenshots -Destination $(Build.ArtifactStagingDirectory) -Force -Verbose
+            displayName: Run Puppeteer Tests
             workingDirectory: App
+          
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: $(Build.ArtifactStagingDirectory)
+              ArtifactName: images
+              publishLocation: Container
 
   - ${{ if and(eq(variables['Build.SourceBranchName'], 'development'), eq(variables['Build.Reason'], 'IndividualCI')) }}:
     - stage: developmentPromotion
