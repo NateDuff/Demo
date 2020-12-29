@@ -52,9 +52,17 @@ stages:
               failIfCoverageEmpty: true
           
           - task: PublishBuildArtifacts@1
+            condition: success()
             inputs:
               PathtoPublish: $(Build.ArtifactStagingDirectory)
               ArtifactName: images
+              publishLocation: Container
+          
+          - task: PublishBuildArtifacts@1
+            condition: failed()
+            inputs:
+              PathtoPublish: $(System.DefaultWorkingDirectory)
+              ArtifactName: drop
               publishLocation: Container
 
   - ${{ if and(eq(variables['Build.SourceBranchName'], 'development'), eq(variables['Build.Reason'], 'IndividualCI')) }}:
