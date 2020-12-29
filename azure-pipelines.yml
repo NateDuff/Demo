@@ -26,47 +26,6 @@ stages:
               Get-ChildItem Env:
             displayName: Run Build Application Script
 
-          - powershell: |
-              node -v
-              sudo npm i -g @pnp/cli-microsoft365@next
-              m365 login --authType certificate --certificateBase64Encoded "$(PipelineCert)" --appId $(appId) --tenant $(tenantId)
-              
-              $siteUrl = "https://nateduff.sharepoint.com/sites/PipelineProvisioning"
-              $markdownPath = "$(System.DefaultWorkingDirectory)/pull_request_template.md"
-              $pagesPath = "/sites/PipelineProvisioning/SitePages"
-
-              $fileName = "Sample-Markdown-from-ADO.aspx"
-
-              # Make sure we have pip updated for the 'markdown' package
-              python -m pip install --upgrade pip
-              python -m pip install markdown
-
-              # Convert the Markdown to HTML, for the web part properties to work correctly
-              $md = Get-Content $markdownPath
-              $md = $md -join "\n"
-              $htmlFromMd = python -m markdown $markdownPath
-              $htmlFromMd = $htmlFromMd -join ''
-
-              # Set the web part data from the html and md. The data needs both to publish correctly
-              $webPartData = '{""title"": ""ADO-Markdown"",""description"": ""Auto-generated from ADO pipeline"",""serverProcessedContent"": {""htmlStrings"": {""html"": ""' + $htmlFromMd + '""},""searchablePlainTexts"": {""code"": ""' + $md + '""},""imageSources"": {},""links"": {}},""dataVersion"": ""2.0"",""properties"": {""displayPreview"": true,""lineWrapping"": true,""miniMap"": {""enabled"": false},""previewState"": ""Show"",""theme"": ""Monokai""}}'
-              
-              # Find the first existing markdown webpart on the page
-              $pageControlId = m365 spo page control list --webUrl $siteUrl --name $fileName --query "[?title=='ADO-Markdown'] | [0].id" -o json
-              
-              if ($pageControlId -eq 'null') {
-                m365 spo page clientsidewebpart add -u $siteUrl -n $fileName --webPartId 1ef5ed11-ce7b-44be-bc5e-4abd55101d16 --webPartData $webPartData
-              }
-              else {
-                # Add the webpart to an existing page, and existing web part, if found
-                m365 spo page control set -i $pageControlId -u $siteUrl -n $fileName --webPartData $webPartData
-              }
-
-              # Publish the page
-              m365 spo file checkin --fileUrl $pagesPath/$fileName --webUrl $siteUrl
-               
-              m365 logout
-            displayName: Publish Release Notes to SharePoint
-          
       - job: testApp
         displayName: Run Puppeeteer Tests
         dependsOn: [buildApp]
