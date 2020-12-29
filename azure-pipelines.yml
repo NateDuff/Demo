@@ -49,6 +49,7 @@ stages:
             inputs:
               codeCoverageTool: Cobertura
               summaryFileLocation: '$(System.DefaultWorkingDirectory)/App/integration/coverage/cobertura-coverage.xml'
+              reportDirectory: '$(System.DefaultWorkingDirectory)/App/integration/coverage'
               failIfCoverageEmpty: true
           
           - task: PublishBuildArtifacts@1
@@ -61,7 +62,7 @@ stages:
           - task: PublishBuildArtifacts@1
             condition: failed()
             inputs:
-              PathtoPublish: $(System.DefaultWorkingDirectory)/App/integration
+              PathtoPublish: $(System.DefaultWorkingDirectory)/App/integration/coverage
               ArtifactName: drop
               publishLocation: Container
 
