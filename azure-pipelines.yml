@@ -44,6 +44,13 @@ stages:
               testResultsFiles: '**/junit.xml'
               failTaskOnFailedTests: true
           
+          - task: PublishCodeCoverageResults@1
+            displayName: 'Publish code coverage from Jest tests'
+            inputs:
+              codeCoverageTool: Cobertura
+              summaryFileLocation: 'App/integration/coverage/cobertura-coverage.xml'
+              failIfCoverageEmpty: true
+          
           - task: PublishBuildArtifacts@1
             inputs:
               PathtoPublish: $(Build.ArtifactStagingDirectory)
