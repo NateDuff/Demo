@@ -1,6 +1,7 @@
 module.exports = {
   preset: 'jest-puppeteer',
-  testRegex: './*\\.test\\.js$',
+  testRegex: '../*\\.test\\.js$',
+  //rootDir: '../src',
   moduleFileExtensions: [
     "ts",
     "tsx",

@@ -44,27 +44,24 @@ stages:
               testResultsFiles: '**/junit.xml'
               failTaskOnFailedTests: true
           
-          - task: PublishCodeCoverageResults@1
-            displayName: 'Publish code coverage from Jest tests'
-            inputs:
-              codeCoverageTool: Cobertura
-              summaryFileLocation: '$(System.DefaultWorkingDirectory)/App/integration/coverage/cobertura-coverage.xml'
-              reportDirectory: '$(System.DefaultWorkingDirectory)/App/integration/coverage'
-              #failIfCoverageEmpty: true
+          ## Cobertura Code Coverage broken in Jest tests agains CRA (Experimental JSX Error)
+          # - task: PublishCodeCoverageResults@1
+          #   displayName: 'Publish code coverage from Jest tests'
+          #   inputs:
+          #     codeCoverageTool: Cobertura
+          #     summaryFileLocation: '$(System.DefaultWorkingDirectory)/App/integration/coverage/cobertura-coverage.xml'
+          #     reportDirectory: '$(System.DefaultWorkingDirectory)/App/integration/coverage'
+          #     failIfCoverageEmpty: true
           
-          - task: PublishBuildArtifacts@1
+          - publish: $(Build.ArtifactStagingDirectory)
+            displayName: Publish Passing Test Screenshots
             condition: succeeded()
-            inputs:
-              PathtoPublish: $(Build.ArtifactStagingDirectory)
-              ArtifactName: images
-              publishLocation: Container
-          
-          - task: PublishBuildArtifacts@1
+            artifact: images
+
+          - publish: $(System.DefaultWorkingDirectory)
+            displayName: Publish Working Directory for Debugging
             condition: failed()
-            inputs:
-              PathtoPublish: $(System.DefaultWorkingDirectory)/App/integration/coverage
-              ArtifactName: drop
-              publishLocation: Container
+            artifact: drop
 
   - ${{ if and(eq(variables['Build.SourceBranchName'], 'development'), eq(variables['Build.Reason'], 'IndividualCI')) }}:
     - stage: developmentPromotion
