@@ -32,7 +32,7 @@ stages:
               m365 login --authType certificate --certificateBase64Encoded "$(PipelineCert)" --appId $(appId) --tenant $(tenantId)
               
               $siteUrl = "https://nateduff.sharepoint.com/sites/PipelineProvisioning"
-              $markdownPath = "$(Build.ArtifactStagingDirectory)/releaseNotes.md"
+              $markdownPath = "$(System.DefaultWorkingDirectory)/pull_request_template.md"
               $pagesPath = "/sites/PipelineProvisioning/SitePages"
 
               $fileName = "Sample-Markdown-from-ADO.aspx"
