@@ -22,20 +22,13 @@ stages:
         dependsOn: []
         steps:
           - powershell: |
-              node -v
-
-          - task: NodeTool@0
-            inputs:
-              versionSpec: '12.x'
-
-          - powershell: |
               Write-Host "Build application build step"
               Get-ChildItem Env:
             displayName: Run Build Application Script
           - powershell: |
               node -v
               sudo npm i -g @pnp/cli-microsoft365@next
-              m365 login --authType certificate --certificateBase64Encoded "$(PipelineCert)" --appId $(appId) --tenant $(tenantId)
+              m365 login --authType certificate --certificateBase64Encoded "$(PipelineCert)" --appId $(appId2) --tenant $(tenantId2)
               m365 spo web get --webUrl https://nateduff.sharepoint.com/sites/PipelineProvisioning
               m365 logout
             displayName: Publish Release Notes to SharePoint
