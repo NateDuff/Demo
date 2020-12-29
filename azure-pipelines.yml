@@ -259,4 +259,4 @@ stages:
                 m365 spo file checkin --fileUrl $pagesPath/$fileName --webUrl $siteUrl
                 
                 m365 logout
-            displayName: Publish Release Notes to SharePoint
+              displayName: Publish Release Notes to SharePoint
