@@ -7,19 +7,31 @@ pool:
   vmImage: ubuntu-20.04
 
 variables:
-  major: 1
-  minor: 1
+  - group: SharePointReleaseNotes
+  - name: major
+    value: 1
+  - name: minor
+    value: 1
 
 stages:
   - stage: Build
+    dependsOn: []
     jobs:
       - job: buildApp
         displayName: Build Application
+        dependsOn: []
         steps:
           - powershell: |
               Write-Host "Build application build step"
               Get-ChildItem Env:
             displayName: Run Build Application Script
+          - powershell: |
+              npm i -g @pnp/cli-microsoft365@next
+              m365 login --authType certificate --certificateBase64Encoded "$(PipelineCert)" --appId $(appId) --tenant $(tenantId)
+              m365 spo web get --webUrl https://nateduff.sharepoint.com/sites/PipelineProvisioning
+              m365 logout
+            displayName: Publish Release Notes to SharePoint
+
       - job: testApp
         displayName: Run Puppeeteer Tests
         steps:
@@ -171,4 +183,3 @@ stages:
                 addChangeLog: false
                 ${{ if eq(variables.major, 0) }}:
                   isPreRelease: true
-                
