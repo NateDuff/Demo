@@ -1,6 +1,6 @@
 module.exports = {
   preset: 'jest-puppeteer',
-  testRegex: './*\\.integration.test\\.js$',
+  testRegex: './*\\.test\\.js$',
   rootDir: '..',
   collectCoverage: true,
   transform: {
@@ -15,9 +15,13 @@ module.exports = {
   ],
   collectCoverageFrom: [
     "**/*.{ts,tsx,js,jsx}",
+    "!**/coverage/**",
     "!**/node_modules/**",
     "!**/*.config.{ts,tsx,js,jsx}",
     "!**/*.test.{ts,tsx,js,jsx}",
-    "!**/*.transform.{ts,tsx,js,jsx}"
+    "!**/*.transform.{ts,tsx,js,jsx}",
+    "!**/src/registerServiceWorker.js",
+    "!**/src/index.js",
+    "**/src/react-app-env.d.ts",
   ]
 }
