@@ -1,6 +1,8 @@
 const path = require('path')
 const puppeteer = require('puppeteer')
 
+jest.setTimeout(8000)
+
 async function takeScreenshot (title) {
   await page.screenshot({ path: `../screenshots/${title}.png` })
 }

@@ -1,7 +1,12 @@
 module.exports = {
   preset: 'jest-puppeteer',
-  testRegex: '../*\\.test\\.js$',
-  //rootDir: '../src',
+  testRegex: './*\\.integration.test\\.js$',
+  rootDir: '..',
+  collectCoverage: true,
+  transform: {
+    "^.+\\.(svg|css)$": "./svgTransform.js",
+    "\\.[jt]sx?$": "babel-jest"
+  },
   moduleFileExtensions: [
     "ts",
     "tsx",
