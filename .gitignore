@@ -92,3 +92,5 @@ bin
 obj
 appsettings.json
 local.settings.json
+App/src/react-app-env.d.ts
+screenshots/*.png
