@@ -57,7 +57,7 @@ stages:
               codeCoverageTool: Cobertura
               summaryFileLocation: '$(System.DefaultWorkingDirectory)/App/coverage/cobertura-coverage.xml'
               reportDirectory: '$(System.DefaultWorkingDirectory)/App/coverage'
-              failIfCoverageEmpty: true
+              #failIfCoverageEmpty: true
           
           - publish: $(Build.ArtifactStagingDirectory)
             displayName: Publish Passing Test Screenshots
