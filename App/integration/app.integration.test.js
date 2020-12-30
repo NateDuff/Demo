@@ -1,6 +1,8 @@
 const path = require('path')
 const puppeteer = require('puppeteer')
 
+jest.setTimeout(8000)
+
 async function takeScreenshot (title) {
   await page.screenshot({ path: `../screenshots/${title}.png` })
 }
@@ -51,4 +53,23 @@ describe('app', () => {
     
     await takeScreenshot('file-input-test')
   })
+
+  it('should increment the counter value when the increment button is clicked', async () => {
+    await page.goto('http://localhost:3000')
+  
+    const demoButton = await page.$('#demobutton')
+    const counter1 = await page.$('#counter')
+    const initialCount = parseInt(counter1.innerText)
+    const expectedCount = initialCount + 1
+  
+    await demoButton.click()
+  
+    const counter2 = await page.$('#counter')
+    const newCount = parseInt(counter2.innerText)
+    
+    await page.screenshot({ path: `../screenshots/counter-test.png` })
+  
+  
+    await expect(newCount).toBe(expectedCount)
+  });
 })

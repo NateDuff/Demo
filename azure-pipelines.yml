@@ -31,15 +31,14 @@ stages:
         dependsOn: [buildApp]
         steps:
           - powershell: |
-              npm i
-              npm i -d
-            displayName: Install NPM Modules
+              yarn install
+            displayName: Yarn Install
             workingDirectory: App
           
           - powershell: |
               mkdir ../screenshots
 
-              npm run test:integration
+              yarn run test:integration
 
               Move-Item -Path ../screenshots -Destination $(Build.ArtifactStagingDirectory) -Force -Verbose
             displayName: Run Puppeteer Tests
@@ -51,14 +50,14 @@ stages:
               testResultsFiles: '**/junit.xml'
               failTaskOnFailedTests: true
           
-          ## Cobertura Code Coverage broken in Jest tests agains CRA (Experimental JSX Error)
-          # - task: PublishCodeCoverageResults@1
-          #   displayName: 'Publish code coverage from Jest tests'
-          #   inputs:
-          #     codeCoverageTool: Cobertura
-          #     summaryFileLocation: '$(System.DefaultWorkingDirectory)/App/integration/coverage/cobertura-coverage.xml'
-          #     reportDirectory: '$(System.DefaultWorkingDirectory)/App/integration/coverage'
-          #     failIfCoverageEmpty: true
+          # Cobertura Code Coverage broken in Jest tests agains CRA (Experimental JSX Error)
+          - task: PublishCodeCoverageResults@1
+            displayName: 'Publish code coverage from Jest tests'
+            inputs:
+              codeCoverageTool: Cobertura
+              summaryFileLocation: '$(System.DefaultWorkingDirectory)/App/coverage/cobertura-coverage.xml'
+              reportDirectory: '$(System.DefaultWorkingDirectory)/App/coverage'
+              failIfCoverageEmpty: true
           
           - publish: $(Build.ArtifactStagingDirectory)
             displayName: Publish Passing Test Screenshots
