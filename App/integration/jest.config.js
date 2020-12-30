@@ -4,7 +4,7 @@ module.exports = {
   rootDir: '..',
   collectCoverage: true,
   transform: {
-    "^.+\\.(svg|css)$": "./svgTransform.js",
+    "^.+\\.(svg|css)$": "./svg.transform.js",
     "\\.[jt]sx?$": "babel-jest"
   },
   moduleFileExtensions: [
@@ -16,6 +16,8 @@ module.exports = {
   collectCoverageFrom: [
     "**/*.{ts,tsx,js,jsx}",
     "!**/node_modules/**",
-    "!**/*.config.{ts,tsx,js,jsx}"
+    "!**/*.config.{ts,tsx,js,jsx}",
+    "!**/*.test.{ts,tsx,js,jsx}",
+    "!**/*.transform.{ts,tsx,js,jsx}"
   ]
 }
