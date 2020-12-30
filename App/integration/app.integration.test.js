@@ -53,4 +53,16 @@ describe('app', () => {
     
     await takeScreenshot('file-input-test')
   })
+
+  it('should increment the counter value when the increment button is clicked', async () => {
+    const demoButton = await page.$('#demobutton')
+    const initialCount = await page.$eval('#counter', e => parseInt(e.innerHTML))
+    const expectedCount = initialCount + 1
+
+    await demoButton.click()
+
+    const newCount = await page.$eval('#counter', e => parseInt(e.innerHTML))
+
+    await expect(newCount).toBe(expectedCount)
+  })
 })
