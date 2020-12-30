@@ -14,6 +14,8 @@ module.exports = {
     "jsx"
   ],
   collectCoverageFrom: [
-    "**/*.{ts,tsx,js,jsx}"
+    "**/*.{ts,tsx,js,jsx}",
+    "!**/node_modules/**",
+    "!**/*.config.{ts,tsx,js,jsx}"
   ]
 }
