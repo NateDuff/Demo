@@ -1,6 +1,6 @@
 # Demo Project Repo
 
-#### TODO: Add banner images from Azure DevOps & GitHub(?) here
+[![Build Status](https://dev.azure.com/NateDuff/Duff%20Blog/_apis/build/status/Demo?branchName=main)](https://dev.azure.com/NateDuff/Duff%20Blog/_build/latest?definitionId=95&branchName=main)
 
 <br>
 
