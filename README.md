@@ -5,9 +5,9 @@
 <br>
 
 ## Table of Contents
-### [Getting Started](##getting-started)
-### [Objectives](##objectives)
-### [Tools & Technologies](##tools-%26-technologies)
+### [Getting Started](https://github.com/NateDuff/Demo#getting-started)
+### [Objectives](https://github.com/NateDuff/Demo#objectives)
+### [Tools & Technologies](https://github.com/NateDuff/Demo#tools-%26-technologies)
 
 <br>
 
