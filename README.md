@@ -6,14 +6,14 @@
 
 <br>
 
-## Table of Contents
+# Table of Contents
 ### [Getting Started](https://github.com/NateDuff/Demo#getting-started)
 ### [Objectives](https://github.com/NateDuff/Demo#objectives)
 ### [Tools & Technologies](https://github.com/NateDuff/Demo#tools-%26-technologies)
 
 <br>
 
-## Getting Started
+# Getting Started
 
 ```powershell
 # Run a sample command
@@ -22,7 +22,7 @@ Invoke-SpecialCommand -Parameter1 Value1 -Parameter2 Value2
 
 <br>
 
-## Objectives
+# Objectives
 
 ### Automation
 - Automatic mirroring between Azure DevOps and Github after a successful release
@@ -37,7 +37,7 @@ Invoke-SpecialCommand -Parameter1 Value1 -Parameter2 Value2
 
 <br>
 
-## Tools & Technologies
+# Tools & Technologies
 
 ### Development & Automation
 - VSCode
