@@ -6,10 +6,7 @@
 
 <br>
 
-# Table of Contents
-### [Getting Started](https://github.com/NateDuff/Demo#getting-started)
-### [Objectives](https://github.com/NateDuff/Demo#objectives)
-### [Tools & Technologies](https://github.com/NateDuff/Demo#tools-%26-technologies)
+[[TOC]]
 
 <br>
 
